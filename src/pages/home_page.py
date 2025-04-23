@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 
 # prepare data and load 
-df = pd.read_csv("data/WA_Fn-UseC_-Telco-Customer-Churn.csv")
+df = pd.read_csv("../data/WA_Fn-UseC_-Telco-Customer-Churn.csv")
 churn_counts = df['ChurnFlag'].value_counts().reset_index()
 churn_counts.columns = ['ChurnFlag', 'Count']
 churn_counts['ChurnFlag'] = churn_counts['ChurnFlag'].map({0: 'No Churn', 1: 'Churn'})
