@@ -3,10 +3,11 @@ from dash import html, dcc
 import pandas as pd
 import plotly.express as px
 from io import StringIO
+import os
 
-# Fallback-safe dataset loading
 try:
-    df = pd.read_csv("data/WA_Fn-UseC_-Telco-Customer-Churn.csv")
+    csv_path = os.path.join(os.path.dirname(__file__), '../../data/WA_Fn-UseC_-Telco-Customer-Churn.csv')
+    df = pd.read_csv(csv_path)
 except FileNotFoundError:
     fallback_csv = StringIO("""customerID,gender,SeniorCitizen,Churn\n0001-FHJKL,Female,0,Yes\n0002-FHJKM,Male,0,No\n0003-FHJKN,Female,1,No""")
     df = pd.read_csv(fallback_csv)
@@ -36,7 +37,7 @@ fig.update_traces(textposition='auto')
 # layout
 layout = dbc.Container([
     html.Div([
-        html.H1("Telco Churn Predictor", className="page-title"),
+        html.H1("Telco Churn Predictor", className="page-title text-center mb-4"),
         html.P(
             "Welcome to the Telco Churn Predictor Dashboard — a powerful tool built to explore telecom customer churn behavior, evaluate machine learning models, and interactively predict churn risk.",
             className="subtitle"
@@ -47,22 +48,34 @@ layout = dbc.Container([
         dbc.Row([
             dbc.Col([
                 html.H4("Analytics", className="section-title"),
-                html.P("Explore customer trends, churn buckets, and feature correlations.")
+                html.P([
+                    "Explore customer trends, churn buckets, and feature correlations. ",
+                    html.A("Go to Analytics →", href="/analytics", className="link-style")
+                ])
             ]),
             dbc.Col([
                 html.H4("Info", className="section-title"),
-                html.P("Understand the dataset, the business context, and our project pipeline.")
+                html.P([
+                    "Understand the dataset, the business context, and our project pipeline. ",
+                    html.A("Go to Info →", href="/info", className="link-style")
+                ])
             ])
         ], className="mb-4"),
 
         dbc.Row([
             dbc.Col([
                 html.H4("Performance", className="section-title"),
-                html.P("View model metrics, ROC curves, and select the best predictor.")
+                html.P([
+                    "View model metrics, ROC curves, and select the best predictor. ",
+                    html.A("Go to Performance →", href="/performance", className="link-style")
+                ])
             ]),
             dbc.Col([
                 html.H4("Predict", className="section-title"),
-                html.P("Test our deployed model with real inputs and see the churn likelihood.")
+                html.P([
+                    "Test our deployed model with real inputs and see the churn likelihood. ",
+                    html.A("Go to Predict →", href="/predict", className="link-style")
+                ])
             ])
         ]),
 
@@ -106,6 +119,6 @@ layout = dbc.Container([
             ], className="team-card"), md=3),
         ], className="mb-5"),
 
-        html.Footer("Powered by Render — Cloud Application Platform", className="footer-note")
+        html.Footer("Powered by Render — Cloud Application Platform", className="footer-note text-muted mt-5 mb-3 text-center")
     ], className="hero-panel")
 ], fluid=False)
