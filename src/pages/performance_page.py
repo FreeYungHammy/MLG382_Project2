@@ -24,8 +24,7 @@ table_component = dash_table.DataTable(
         'backgroundColor': '#343a40',
         'color': 'white',
         'fontWeight': 'bold'
-    },
-    className="mb-5"
+    }
 )
 
 layout = dbc.Container([
@@ -55,5 +54,5 @@ layout = dbc.Container([
 
         html.Footer("Evaluation powered by ROC and probability calibration — aiding fair model comparison and trust in prediction reliability.", className="footer-note text-muted mt-5 mb-3 text-center")
     ],
-    className="hero-panel"
-)], fluid=False)
+    className="hero-panel")
+], fluid=False)
