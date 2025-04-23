@@ -20,19 +20,20 @@ app = dash.Dash(
 server = app.server  # for Render
 
 # nav
-navbar = dbc.NavbarSimple(
-    children=[
-        dbc.NavItem(dcc.Link("Home", href="/", className="nav-link")),
-        dbc.NavItem(dcc.Link("Analytics", href="/analytics", className="nav-link")),
-        dbc.NavItem(dcc.Link("Info", href="/info", className="nav-link")),
-        dbc.NavItem(dcc.Link("Performance", href="/performance", className="nav-link")),
-        dbc.NavItem(dcc.Link("Predict", href="/predict", className="nav-link")),
-    ],
-    brand="Telco Churn Predictor",
-    brand_href="/",
-    color="primary",
+navbar = dbc.Navbar(
+    dbc.Container([
+        dbc.NavbarBrand("Telco Churn Predictor", href="/", className="navbar-title"),
+        dbc.Nav([
+            dbc.NavItem(dcc.Link("Home", href="/", className="nav-link")),
+            dbc.NavItem(dcc.Link("Analytics", href="/analytics", className="nav-link")),
+            dbc.NavItem(dcc.Link("Info", href="/info", className="nav-link")),
+            dbc.NavItem(dcc.Link("Performance", href="/performance", className="nav-link")),
+            dbc.NavItem(dcc.Link("Predict", href="/predict", className="nav-link")),
+        ], className="ml-auto", navbar=True),
+    ]),
+    color="dark",
     dark=True,
-    className="custom-navbar"  
+    className="custom-navbar"
 )
 
 # main
