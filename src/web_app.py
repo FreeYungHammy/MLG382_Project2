@@ -8,10 +8,12 @@ from pages.analytics_page import layout as analytics_layout
 from pages.info_page import layout as info_layout
 from pages.performance_page import layout as performance_layout
 from pages.predict_page import layout as predict_layout
+import src.callbacks.callbacks_predict
 
 # initialize app
 app = dash.Dash(__name__, use_pages=False, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
+src.callbacks.callbacks_predict.register_callbacks(app)
 
 # navigation bar
 navbar = dbc.NavbarSimple(

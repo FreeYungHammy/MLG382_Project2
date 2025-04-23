@@ -41,7 +41,7 @@ layout = dbc.Container([
         table_component,
 
         html.H2("ROC Curve Comparison", className="section-title mt-4"),
-        html.Img(src="/assets/rog_curve_all_models.png", className="img-fluid mb-3"),
+        html.Img(src="/assets/roc_curve_all_models.png", className="img-fluid mb-3"),
         html.P(
             "This ROC curve illustrates the true positive rate against the false positive rate for Logistic Regression and Random Forest models. The closer the curve follows the left-hand border and then the top border of the ROC space, the more accurate the model."
         ),
