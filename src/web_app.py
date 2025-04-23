@@ -4,11 +4,11 @@ import dash_bootstrap_components as dbc
 import os
 
 # page layouts
-from src.pages.home_page import layout as home_layout
-from src.pages.analytics_page import layout as analytics_layout
-from src.pages.info_page import layout as info_layout
-from src.pages.performance_page import layout as performance_layout
-from src.pages.predict_page import layout as predict_layout
+from pages.analytics_page import layout as analytics_layout
+from pages.info_page import layout as info_layout
+from pages.performance_page import layout as performance_layout
+from pages.predict_page import layout as predict_layout
+from pages.home_page import layout as home_layout
 
 # dash app
 app = dash.Dash(
