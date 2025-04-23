@@ -3,18 +3,18 @@ from dash import html, dcc
 import pandas as pd
 import plotly.express as px
 
-# prepare data and load 
+# raw dataset
 df = pd.read_csv("../data/WA_Fn-UseC_-Telco-Customer-Churn.csv")
-churn_counts = df['ChurnFlag'].value_counts().reset_index()
-churn_counts.columns = ['ChurnFlag', 'Count']
-churn_counts['ChurnFlag'] = churn_counts['ChurnFlag'].map({0: 'No Churn', 1: 'Churn'})
 
-# bar chart
+churn_counts = df["Churn"].value_counts().reset_index()
+churn_counts.columns = ['Churn', 'Count']
+
+# plotting 
 fig = px.bar(
     churn_counts,
-    x='ChurnFlag',
+    x='Churn',
     y='Count',
-    color='ChurnFlag',
+    color='Churn',
     title='Customer Churn Distribution',
     text='Count',
     color_discrete_sequence=["#00c7b1", "#ff6b6b"]
@@ -64,7 +64,6 @@ layout = dbc.Container([
         html.Hr(),
 
         html.H3("Churn Rate in the Dataset", className="section-title"),
-
         dbc.Row([
             dbc.Col([
                 dcc.Graph(figure=fig)
@@ -72,7 +71,6 @@ layout = dbc.Container([
         ], className="mb-5"),
 
         html.H3("Meet the Team", className="team-header"),
-
         dbc.Row([
             dbc.Col(dbc.Card([
                 dbc.CardHeader("Glory Binkatabana", className="card-header-custom"),
