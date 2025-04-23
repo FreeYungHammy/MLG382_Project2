@@ -3,3 +3,4 @@ dash-bootstrap-components
 scikit-learn
 pandas
 numpy
+gunicorn
