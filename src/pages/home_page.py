@@ -1,77 +1,108 @@
-from dash import html
 import dash_bootstrap_components as dbc
+from dash import html, dcc
+import pandas as pd
+import plotly.express as px
 
-layout = html.Div([
-    dbc.Container([
-        dbc.Card([
-            dbc.CardBody([
+# prepare data and load 
+df = pd.read_csv("data/WA_Fn-UseC_-Telco-Customer-Churn.csv")
+churn_counts = df['ChurnFlag'].value_counts().reset_index()
+churn_counts.columns = ['ChurnFlag', 'Count']
+churn_counts['ChurnFlag'] = churn_counts['ChurnFlag'].map({0: 'No Churn', 1: 'Churn'})
 
-                html.H1("Telco Churn Predictor", className="page-title"),
-                html.P(
-                    "Welcome to the Telco Churn Predictor Dashboard — a powerful tool built to explore telecom customer churn behavior, evaluate machine learning models, and interactively predict churn risk.",
-                    className="lead"
-                ),
+# bar chart
+fig = px.bar(
+    churn_counts,
+    x='ChurnFlag',
+    y='Count',
+    color='ChurnFlag',
+    title='Customer Churn Distribution',
+    text='Count',
+    color_discrete_sequence=["#00c7b1", "#ff6b6b"]
+)
 
-                html.Hr(),
+fig.update_layout(
+    plot_bgcolor='white',
+    paper_bgcolor='white',
+    font=dict(color='#2c3e50'),
+    title_x=0.5
+)
+fig.update_traces(textposition='outside')
 
-                dbc.Row([
-                    dbc.Col([
-                        html.H4("Analytics", className="section-title"),
-                        html.P("Explore customer trends, churn buckets, and feature correlations.")
-                    ]),
-                    dbc.Col([
-                        html.H4("Info", className="section-title"),
-                        html.P("Understand the dataset, the business context, and our project pipeline.")
-                    ])
-                ], className="mb-4"),
+# layout
+layout = dbc.Container([
+    html.Div([
+        html.H1("Telco Churn Predictor", className="page-title"),
+        html.P(
+            "Welcome to the Telco Churn Predictor Dashboard — a powerful tool built to explore telecom customer churn behavior, evaluate machine learning models, and interactively predict churn risk.",
+            className="subtitle"
+        ),
 
-                dbc.Row([
-                    dbc.Col([
-                        html.H4("Performance", className="section-title"),
-                        html.P("View model metrics, ROC curves, and select the best predictor.")
-                    ]),
-                    dbc.Col([
-                        html.H4("Predict", className="section-title"),
-                        html.P("Test our deployed model with real inputs and see the churn likelihood.")
-                    ])
+        html.Hr(),
+
+        dbc.Row([
+            dbc.Col([
+                html.H4("Analytics", className="section-title"),
+                html.P("Explore customer trends, churn buckets, and feature correlations.")
+            ]),
+            dbc.Col([
+                html.H4("Info", className="section-title"),
+                html.P("Understand the dataset, the business context, and our project pipeline.")
+            ])
+        ], className="mb-4"),
+
+        dbc.Row([
+            dbc.Col([
+                html.H4("Performance", className="section-title"),
+                html.P("View model metrics, ROC curves, and select the best predictor.")
+            ]),
+            dbc.Col([
+                html.H4("Predict", className="section-title"),
+                html.P("Test our deployed model with real inputs and see the churn likelihood.")
+            ])
+        ]),
+
+        html.Hr(),
+
+        html.H3("Churn Rate in the Dataset", className="section-title"),
+
+        dbc.Row([
+            dbc.Col([
+                dcc.Graph(figure=fig)
+            ])
+        ], className="mb-5"),
+
+        html.H3("Meet the Team", className="team-header"),
+
+        dbc.Row([
+            dbc.Col(dbc.Card([
+                dbc.CardHeader("Glory Binkatabana", className="card-header-custom"),
+                dbc.CardBody([
+                    html.P("Data Lead — Research, data sourcing, improvement recommendations.")
                 ])
-            ])
-        ], className="hero-panel"),
+            ], className="team-card"), md=3),
 
-        html.Div([
-            html.H3("Meet the Team", className="team-header"),
+            dbc.Col(dbc.Card([
+                dbc.CardHeader("Storm Tarran", className="card-header-custom"),
+                dbc.CardBody([
+                    html.P("EDA & Feature Engineering — Deep-dive into patterns & pre-processing.")
+                ])
+            ], className="team-card"), md=3),
 
-            dbc.Row([
-                dbc.Col(dbc.Card([
-                    dbc.CardHeader("Glory Binkatabana", className="card-header-custom"),
-                    dbc.CardBody([
-                        html.P("Data Lead – Research, data sourcing, improvement recommendations.")
-                    ])
-                ], className="team-card"), md=3),
+            dbc.Col(dbc.Card([
+                dbc.CardHeader("Tiaan Wessels", className="card-header-custom"),
+                dbc.CardBody([
+                    html.P("Modeling & Evaluation — Trained ML models, compared results.")
+                ])
+            ], className="team-card"), md=3),
 
-                dbc.Col(dbc.Card([
-                    dbc.CardHeader("Storm Tarran", className="card-header-custom"),
-                    dbc.CardBody([
-                        html.P("EDA & Feature Engineering – Deep-dive into patterns & pre-processing.")
-                    ])
-                ], className="team-card"), md=3),
+            dbc.Col(dbc.Card([
+                dbc.CardHeader("Calvin Ronin Nijenhuis", className="card-header-custom"),
+                dbc.CardBody([
+                    html.P("Deployment & App — Dash app builder, API integration, full deployment.")
+                ])
+            ], className="team-card"), md=3),
+        ], className="mb-5"),
 
-                dbc.Col(dbc.Card([
-                    dbc.CardHeader("Tiaan Wessels", className="card-header-custom"),
-                    dbc.CardBody([
-                        html.P("Modeling & Evaluation – Trained ML models, compared results.")
-                    ])
-                ], className="team-card"), md=3),
-
-                dbc.Col(dbc.Card([
-                    dbc.CardHeader("Calvin Ronin Nijenhuis", className="card-header-custom"),
-                    dbc.CardBody([
-                        html.P("Deployment & App – Dash app builder, API integration, full deployment.")
-                    ])
-                ], className="team-card"), md=3)
-            ])
-        ], className="mt-5"),
-
-        html.Footer("Powered by Render — Cloud Application Platform", className="footer-note mt-4")
-    ], fluid=True, className="home-content")
-])
+        html.Footer("Powered by Render — Cloud Application Platform", className="footer-note")
+    ], className="hero-panel")
+], fluid=False)
