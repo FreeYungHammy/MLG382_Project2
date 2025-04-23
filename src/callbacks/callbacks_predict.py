@@ -15,9 +15,9 @@ input_features = [
     'LogTotalCharges', 'MonthlyCharges_scaled',
     'Contract_One year', 'Contract_Two year',
     'PaperlessBilling_Yes', 'PaymentMethod_Electronic check',
-    'Tenure_0-12', 'Tenure_12-24', 'Tenure_24-48',
-    'Tenure_48-60', 'Tenure_gt_60'
+    'tenure_4–12', 'tenure_13–24', 'tenure_25–48', 'tenure_49+'
 ]
+
 def register_callbacks(app):
     @app.callback(
         Output('prediction-output', 'children'),
