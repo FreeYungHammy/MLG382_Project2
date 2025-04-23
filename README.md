@@ -43,9 +43,11 @@ git clone https://github.com/FreeYungHammy/MLG382_Project2
 pip install -r requirements.txt
 
 ## Usage
-Data preparation and model training scripts are located in src/.
-Notebooks with exploratory analysis and model evaluation are in notebooks/.
-Final models and results are stored in artifacts/.
+- Data preparation and model training scripts are located in src/.
+
+- Notebooks with exploratory analysis and model evaluation are in notebooks/.
+
+- Final models and results are stored in artifacts/.
 
 ## Web Application
 The final web application (Dash app) will be deployed and accessible online.
