@@ -26,7 +26,7 @@ navbar = dbc.NavbarSimple(
     brand_href="/",
     color="primary",
     dark=True,
-    className="mb-4"
+    className="custom-navbar"
 )
 
 # app layout

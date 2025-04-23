@@ -7,43 +7,43 @@ from dash.exceptions import PreventUpdate
 import base64
 import os
 
-# load default dataset or else fallback to a sample
+# Load default dataset or fallback
 try:
     csv_path = os.path.join(os.path.dirname(__file__), '../../data/WA_Fn-UseC_-Telco-Customer-Churn.csv')
-    df = pd.read_csv(csv_path)
+    df_default = pd.read_csv(csv_path)
 except FileNotFoundError:
     fallback_csv = StringIO("""customerID,gender,SeniorCitizen,Churn\n0001-FHJKL,Female,0,Yes\n0002-FHJKM,Male,0,No\n0003-FHJKN,Female,1,No""")
     df_default = pd.read_csv(fallback_csv)
 
 layout = dbc.Container([
-    html.H2("Dataset Preview", className="section-title mt-4"),
+    html.Div([
+        html.H2("Dataset Preview", className="section-title mt-4"),
 
-    dcc.Upload(
-        id='upload-data',
-        children=html.Div([
-            'Drag and Drop or ', html.A('Select a CSV File')
-        ]),
-        style={
-            'width': '100%',
-            'height': '60px',
-            'lineHeight': '60px',
-            'borderWidth': '1px',
-            'borderStyle': 'dashed',
-            'borderRadius': '5px',
-            'textAlign': 'center',
-            'margin-bottom': '20px'
-        },
-        multiple=False
-    ),
+        dcc.Upload(
+            id='upload-data',
+            children=html.Div(['Drag and Drop or ', html.A('Select a CSV File')]),
+            style={
+                'width': '100%',
+                'height': '60px',
+                'lineHeight': '60px',
+                'borderWidth': '1px',
+                'borderStyle': 'dashed',
+                'borderRadius': '5px',
+                'textAlign': 'center',
+                'margin-bottom': '20px'
+            },
+            multiple=False
+        ),
 
-    html.Div(id='data-preview'),
-    html.Hr(),
-    html.H2("Statistical Summary", className="section-title"),
-    html.Div(id='data-summary'),
+        html.Div(id='data-preview'),
+        html.Hr(),
+        html.H2("Statistical Summary", className="section-title"),
+        html.Div(id='data-summary'),
 
-    html.P("Note: This summary helps understand trends and data distributions used in the modeling process.", className="text-muted mt-3")
+        html.P("Note: This summary helps understand trends and data distributions used in the modeling process.",
+               className="text-muted mt-3")
+    ], className="hero-panel")
 ], fluid=False)
-
 
 def parse_contents(contents):
     content_type, content_string = contents.split(',')
@@ -51,7 +51,7 @@ def parse_contents(contents):
     try:
         df = pd.read_csv(StringIO(decoded.decode('utf-8')))
         return df
-    except Exception as e:
+    except Exception:
         return None
 
 @dash.callback(
@@ -64,7 +64,6 @@ def update_output(contents, filename):
     if contents is None:
         df = df_default
     else:
-        import base64
         df = parse_contents(contents)
         if df is None:
             raise PreventUpdate

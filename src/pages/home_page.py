@@ -7,12 +7,12 @@ import os
 
 try:
     csv_path = os.path.join(os.path.dirname(__file__), '../../data/WA_Fn-UseC_-Telco-Customer-Churn.csv')
-    df = pd.read_csv(csv_path)
+    df_default = pd.read_csv(csv_path)
 except FileNotFoundError:
     fallback_csv = StringIO("""customerID,gender,SeniorCitizen,Churn\n0001-FHJKL,Female,0,Yes\n0002-FHJKM,Male,0,No\n0003-FHJKN,Female,1,No""")
-    df = pd.read_csv(fallback_csv)
+    df_default = pd.read_csv(fallback_csv)
 
-churn_counts = df["Churn"].value_counts().reset_index()
+churn_counts = df_default["Churn"].value_counts().reset_index()
 churn_counts.columns = ['Churn', 'Count']
 
 # plotting 
