@@ -41,13 +41,13 @@ layout = dbc.Container([
         table_component,
 
         html.H2("ROC Curve Comparison", className="section-title mt-4"),
-        html.Img(src="roc_curve_all_models.png", className="img-fluid mb-3"),
+        html.Img(src="/assets/roc_curve_all_models.png", className="img-fluid mb-3"),
         html.P(
             "This ROC curve illustrates the true positive rate against the false positive rate for Logistic Regression and Random Forest models. The closer the curve follows the left-hand border and then the top border of the ROC space, the more accurate the model."
         ),
 
         html.H2("Calibration Curve (Logistic Regression)", className="section-title mt-5"),
-        html.Img(src="calibration_curve.png", className="img-fluid mb-3"),
+        html.Img(src="/assets/calibration_curve.png", className="img-fluid mb-3"),
         html.P(
             "The calibration curve helps determine if the predicted probabilities are representative of actual outcomes. This plot shows that the Logistic Regression model produces probabilities that are reasonably calibrated against real churn events."
         ),

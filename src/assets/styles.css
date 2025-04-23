@@ -1,7 +1,7 @@
 
 /* have to use assets file so that render can autodeploy the css styling */
 body {
-    background-color: #f7f9fa;
+    background-color: #212529; 
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
     padding: 0;
@@ -17,7 +17,7 @@ h1, h2, h3 {
 }
 
 .custom-navbar {
-    background-color: #001f3f !important;
+    background-color: #212529 !important; 
     padding: 0.75rem 1.5rem;
     border-bottom: 2px solid #00c7b1;
     margin-bottom: 20px;
@@ -52,12 +52,12 @@ h1, h2, h3 {
 
 /* Hero Panel (main content wrapper) */
 .hero-panel {
-    background-color: rgb(33, 37, 41);
+    background-color: #ffffff; 
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.2);
     margin-bottom: 30px;
-    color: white; /* optional, for better contrast */
+    color: #212529;
 }
 
 /* Typography + Layout */
