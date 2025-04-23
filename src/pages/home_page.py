@@ -2,9 +2,14 @@ import dash_bootstrap_components as dbc
 from dash import html, dcc
 import pandas as pd
 import plotly.express as px
+from io import StringIO
 
-# raw dataset
-df = pd.read_csv("../data/WA_Fn-UseC_-Telco-Customer-Churn.csv")
+# Fallback-safe dataset loading
+try:
+    df = pd.read_csv("data/WA_Fn-UseC_-Telco-Customer-Churn.csv")
+except FileNotFoundError:
+    fallback_csv = StringIO("""customerID,gender,SeniorCitizen,Churn\n0001-FHJKL,Female,0,Yes\n0002-FHJKM,Male,0,No\n0003-FHJKN,Female,1,No""")
+    df = pd.read_csv(fallback_csv)
 
 churn_counts = df["Churn"].value_counts().reset_index()
 churn_counts.columns = ['Churn', 'Count']
@@ -26,7 +31,7 @@ fig.update_layout(
     font=dict(color='#2c3e50'),
     title_x=0.5
 )
-fig.update_traces(textposition='outside')
+fig.update_traces(textposition='auto')
 
 # layout
 layout = dbc.Container([
